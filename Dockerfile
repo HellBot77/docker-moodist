@@ -8,8 +8,8 @@ RUN git clone https://github.com/remvze/moodist.git && \
 
 FROM node:alpine as build
 
-COPY --from=base /git/moodist /moodist
 WORKDIR /moodist
+COPY --from=base /git/moodist .
 RUN npm install && \
     npm run build
 
