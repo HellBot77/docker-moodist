@@ -1,8 +1,6 @@
-name: Docker Image CI
+name: Docker Image CI [Original]
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
 
 env:
@@ -35,11 +33,11 @@ jobs:
     if: ${{ needs.get-tag.outputs.tag }}
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch Dockerfile
+      - name: Fetch repository
         uses: actions/checkout@v4
         with:
-          sparse-checkout: Dockerfile
-          sparse-checkout-cone-mode: false
+          repository: ${{ env.TAG_GIT_RELEASE }}
+          ref: ${{ needs.get-tag.outputs.tag }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
