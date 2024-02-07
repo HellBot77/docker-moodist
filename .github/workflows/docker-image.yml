@@ -35,15 +35,6 @@ jobs:
     if: ${{ needs.get-tag.outputs.tag }}
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch Dockerfile
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: Dockerfile
-          sparse-checkout-cone-mode: false
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
@@ -58,7 +49,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
           platforms: ${{ env.PLATFORMS }}
           push: true
           build-args: TAG=${{ needs.get-tag.outputs.tag }}
