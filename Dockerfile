@@ -13,7 +13,6 @@ COPY --from=base /git/moodist .
 RUN npm install && \
     npm run build
 
-FROM pierrezemb/gostatic
+FROM lipanski/docker-static-website
 
-COPY --from=build /moodist/dist /srv/http
-EXPOSE 8043
+COPY --from=build /moodist/dist .
